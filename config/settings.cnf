@@ -1,0 +1,61 @@
+[settings]
+# Install Directory
+installDir          = /etc/cert-gui/
+
+# Root directory of all certificate management
+certRootDir                = $installDir/certificates
+
+###############################################################
+### If you want to access a different certificate's values, ###
+### you can just write (certificate number).(value name)    ###
+### Example: Say I had a [int.3] definition, but I wanted   ###
+### to add a folder to $certRootDir from 2's definition.    ###
+### I could just type                                       ###
+### certRootDir = $2.certRootDir/3                          ###
+###############################################################
+
+# Default Directories
+# All settings will be inherited from here if they are left unset in later certificate definitions
+[int.0]
+certRootDir                 = $certRootDir/
+certPrivateKeysDir          = $certRootDir/keys
+certSignedFilesDir          = $certRootDir/certs
+certRequestsDir             = $certRootDir/csr
+certCRLDir                  = $certRootDir/crl
+certNewCertsDir             = $certRootDir/newcerts
+
+# Default Files
+crlFile                     = $certCRLDir/ca.crl.pem
+randFile                    = $certDir/private/.rand
+serialFile                  = $certDir/serial
+indexFile                   = $certDir/index.txt
+crlnumberFile               = $certDir/crlnumber
+
+# Default Settings
+serverDays                  = 375
+intermediateDays            = 3650
+crlDays                     = 30
+keysDefaultLength           = 2048
+userCertComment             = "OpenSSL Generated User Certificate"
+serverCertComment           = "OpenSSL Generated Server Certificate"
+
+
+# Certificate Authority Files
+# NOTE: This SHOULD NOT be the root CA. This should be the intermediate certificate your airgapped
+# root CA generated
+
+########################################################
+### This is a REQUIRED SETTING for ALL INTERMEDIATES ###
+########################################################
+
+signerCertFile              = $certRootDir/ca/ca.cert.pem
+signerKeyFile               = $certRootDir/ca/ca.key.pem
+
+# Default Certificate Settings
+defaultCountryName          = US
+defaultStateName            = New York
+defaultLocality             = NYC
+defaultOrganizationName     = Organization
+defaultUnitName             = Unit
+defaultCommonName           = Common Name
+defaultEmailAddress         = root@localhost
